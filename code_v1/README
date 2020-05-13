@@ -1,0 +1,7 @@
+there are 2 versions:
+simple and normal
+
+to run the simple version, change your working folder to simple/ and then run simple.py
+
+to run the normal version, Type 'python main.py [filename] ' in the command line, or modify input_fn in main.py. And then run main.py
+
