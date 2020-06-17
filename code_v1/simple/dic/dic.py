@@ -7,7 +7,7 @@ from get_frames import get_frames
 
 def get_next_ROI(ROI_x_min, ROI_x_max, ROI_y_min, ROI_y_max, current_i_frame, results, width, height, template_width, template_height):
 	import numpy as np
-	ROI_size_half = 0.12
+	ROI_size_half = 0.06
 	curr = results[current_i_frame]
 	if current_i_frame > 0:
 		prev = results[current_i_frame-1]
@@ -53,9 +53,7 @@ def main():
 		frame_hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 		roi_frame_hsv = frame_hsv[ROI_y_min:ROI_y_max,ROI_x_min:ROI_x_max]
 		res = cv2.matchTemplate(roi_frame_hsv, temp_template, cv2.TM_SQDIFF)
-
-		#res = cv2.matchTemplate(frame_hsv, temp_template, cv2.TM_SQDIFF)
-		#print(res.shape)
+		res = res + 1.50 * cv2.matchTemplate(roi_frame_hsv, template_hsv, cv2.TM_SQDIFF)
 		ind = np.unravel_index(np.argmin(res, axis=None), res.shape)
 		ind = (ind[0]+ROI_y_min, ind[1]+ROI_x_min)
 		results[i_frame] = (ind[1], ind[0])
